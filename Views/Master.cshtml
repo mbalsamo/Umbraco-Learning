@@ -1,0 +1,53 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+	Layout = null;
+}
+
+<html>
+	<head>
+		<title>Balsamo Beverages</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="/css/main.css" />
+	</head>
+	
+	<body>
+
+		<!-- Navigation -->
+		<div class="container">
+			<nav class="navbar navbar-expand navbar-light">
+				<a class="navbar-brand font-weight-bold" href="/">Balsamo Beverages</a>
+				<!--This is a dynamically changing list of the navbar. it auto changes
+				when you add a new page to the content tree. -->
+                @{ 
+                    var site = Model.Root();
+                    var selection = site.Children.Where(x => x.IsVisible()); 
+                }
+                
+                <!--This loops through the different pages that will be on the navbar-->
+                @foreach (var item in selection)
+                {
+                    <a class="nav-link @(item.IsAncestorOrSelf(Model) ? "nav-link--active" : null)" href="@item.Url()">@item.Name()</a>
+                }
+			</nav>
+		</div>
+
+    <!--insert child templates content now -->
+    @RenderBody()
+    
+    <!-- then apply the footer after the child content -->
+    <div class="container-fluid footer">
+    	<div class="container">
+            @Model.Value("footerText", fallback: Fallback.ToAncestors)		
+        </div>
+    </div>
+	
+	<!-- Scripts -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	
+	</body>
+</html>

@@ -1,0 +1,41 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.BeveragesMain>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+
+		<!-- Jumbotron, w title -->
+		<div class="jumbotron text-center jumbotron-fluid">
+			<div class="container">
+				<h1 class="display-1">@Model.Value("beverageTitle")</h1>
+				<p>@Model.Value("beverageBody")</p>
+			</div>
+		</div>
+        <br />
+		<!-- Main container -->
+		<div class="container">
+		    
+    		<!-- The Drink List -->
+    		<div class="row">
+    		    <!-- This will add a new section for each in the beverage list. -->
+                @{
+                	var selection = Umbraco.Content(Guid.Parse("5f3bb2c1-a1f7-4fd9-b932-e693979288b7"))
+                    .ChildrenOfType("beverageItem")
+                    .Where(x => x.IsVisible())
+                    .OrderByDescending(x => x.CreateDate);
+                }
+                	@foreach (var item in selection)
+                	{
+                	    <!--this is for the nice 3 column list-->
+    					<div class="col-md-4">        					
+        					    <div class="thumbnail-blog">
+        						<div class="thumbnail-img" style="background-image:url('/images/steaming-mug.jpg')"></div>
+            						<h5>@item.Name()</h5>
+                                    <div class="articlepreview">@item.Value("beverageContent")</div>
+    					        </div>
+        				</div>
+                	}
+    		</div>
+		</div>

@@ -1,0 +1,44 @@
+﻿@using Umbraco.Cms.Web.Common.PublishedModels;
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Home>
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+	Layout = "Master.cshtml";
+}
+
+<!-- Jumbotron, w title -->
+<div class="jumbotron text-center jumbotron-fluid">
+	<div class="container">
+		<h1 class="display-1">@Model.Value("pageTitle")</h1>
+		<p>I hope you are hungry. Or thirsty?</p>
+	</div>
+</div>
+
+<!-- This is where we're going to render our content -->
+<div class="container">
+
+	<div class="row section">
+		<div class="col-md-8">
+
+        @Model.Value("bodyText")
+		</div>				
+	<div class="thumbnail-img" style="background-image:url('/images/pouring-coffee.jpg')"></div>
+	<img src="/images/pour-coffee.jpg" class="rounded float-right col-md-4" alt="man pours coffee">
+
+	<img>
+
+	</div>
+
+</div>
+
+<!-- Grey Sub Section -->
+<div class="container-fluid grey-bg">
+	<div class="container">
+		<div class="row section">
+			<div class="col-md-8">
+				<h2>@Model.Value("subTitle")</h2>
+				<p>@Model.Value("subBodyText")</p>
+			</div>
+		</div>
+	</div>
+</div>
+
